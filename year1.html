@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Story | 2023</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;500;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* 🌌 CLEAN, NON-OVERLAPPING BASE */
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+        url('https://images.pexels.com/photos/8917787/pexels-photo-8917787.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Montserrat', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    /* ✨ STRONGER YEAR HEADING */
+    .year-header {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 600;
+      letter-spacing: 12px;
+      margin-top: 50px;
+      text-transform: uppercase;
+      opacity: 1;
+    }
+
+    /* 💎 FLEX CONTAINER FOR POLAROID */
+    .story-wrapper {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      position: relative;
+    }
+
+    /* 📸 ROMANTIC POLAROID TRANSITION */
+    .polaroid {
+      background: #ffffff;
+      padding: 15px 15px 35px 15px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+      border-radius: 1px;
+      width: 78%;
+      max-width: 320px;
+      position: absolute;
+      opacity: 0;
+      /* Starts slightly smaller and lower */
+      transform: scale(0.9) translateY(30px);
+      /* Slow, smooth romantic timing */
+      transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+      pointer-events: none;
+    }
+
+    .polaroid.active {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      pointer-events: auto;
+    }
+
+    .polaroid img {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* 🖋️ STRONGER CAPTION */
+    .caption {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      padding: 25px 10px 0 10px;
+      color: #1a1a1a;
+      line-height: 1.3;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* 💖 CLASSY UNDERSTATED BUTTON */
+    .btn-area {
+      margin-bottom: 60px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 9px 15px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      background: whitesmoke;
+      color: black;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      cursor: pointer;
+      transition: all 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 1);
+      color: #000;
+      letter-spacing: 6px;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    /* ✨ ROMANTIC EXIT EFFECT: Fades out while floating up and slightly zooming */
+    .exit {
+      opacity: 0 !important;
+      transform: scale(1.1) translateY(-40px) rotate(2deg) !important;
+      transition: all 1s ease-in-out !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="year-header">2022</div>
+
+  <div class="story-wrapper" id="story-container">
+
+    <div class="polaroid active">
+      <img src="images/a1.jpg" alt="Moment 1">
+      <div class="caption">Before it all began… you chose me. I understood it only later.💫</div>
+    </div>
+
+    <div class="polaroid"><img src="images/a2.jpg" alt="Moment 2">
+      <div class="caption">One day… you saw my photo throgh someone.</div>
+    </div>
+    
+    <div class="polaroid"><img src="images/a3.jpg" alt="Moment 3">
+      <div class="caption">A way was created to reach me.</div> 
+      <!-- fixed -->
+    </div>
+    <div class="polaroid"><img src="images/a4.jpg" alt="Moment 4">
+      <div class="caption">I didn’t make it easy for you.</div>
+
+    </div>
+    <div class="polaroid"><img src="images/a5.jpg" alt="Moment 5">
+      <div class="caption">You kept trying in your own way 💖</div>
+    </div>
+    <div class="polaroid"><img src="images/a6.jpg" alt="Moment 6">
+      <div class="caption">Those small talks… slowly became something special 💬</div>
+    </div>
+    <div class="polaroid"><img src="images/a7.jpg" alt="Moment 7">
+      <div class="caption">Your patience… your effort… your care 💫</div>
+    </div>
+    <div class="polaroid"><img src="images/a8.jpg" alt="Moment 8">
+      <div class="caption">Somewhere in between… you made me smile without trying 😊</div>
+    </div>
+    <div class="polaroid"><img src="images/a9.jpg" alt="Moment 9">
+      <div class="caption">One day you came to see me , I didn’t say it, but my heart changed.</div>
+    </div>
+    <div class="polaroid"><img src="images/a10.png" alt="Moment 10">
+      <div class="caption">And without even realizing… you became important 🌸</div>
+    </div>
+    <div class="polaroid"><img src="images/a11.jpg" alt="Moment 11">
+      <div class="caption">I couldn’t hide my love anymore.</div>
+    </div>
+    <div class="polaroid"><img src="images/a12.jpg"
+        alt="Moment 12">
+      <div class="caption">I love you. 💕</div>
+    </div>
+
+  </div>
+
+  <div class="btn-area">
+    <button class="btn" onclick="nextSlide()" id="btn">Next</button>
+  </div>
+
+  <script>
+    let index = 0;
+    const slides = document.querySelectorAll(".polaroid");
+    const btn = document.getElementById("btn");
+
+    function nextSlide() {
+      if (index < slides.length) {
+        slides[index].classList.add("exit");
+        slides[index].classList.remove("active");
+      }
+
+      index++;
+
+      if (index < slides.length) {
+        slides[index].classList.add("active");
+      }
+
+      if (index === slides.length - 1) {
+        btn.innerText = "Tap to Continue";
+        btn.onclick = function () {
+          window.location.href = "1quiz.html";
+        }
+      }
+    }
+  </script>
+
+</body>
+
+</html>

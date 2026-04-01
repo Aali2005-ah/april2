@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Couples Date Story</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text-color: #ffffff;
+      --card-text-color: #000000;
+      --accent-color: #ff4d6d;
+      --background-color: white;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--background-color);
+      overflow: hidden;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Floating GIF styling */
+    .bg-gif {
+      position: absolute;
+      width: 75px;
+      /* Slightly smaller for better fit */
+      height: auto;
+      z-index: 1;
+      /* Lowest level */
+      pointer-events: none;
+      /* animation: float 4s ease-in-out infinite; */
+      opacity: 0.9;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-15px) rotate(5deg);
+      }
+    }
+
+    /* Positioning Grid for GIFs to avoid center overlap */
+    .gif1 {
+      top: 3%;
+      left: 5%;
+    }
+
+    .gif2 {
+      top: 3%;
+      right: 5%;
+    }
+
+    .gif3 {
+      top: 20%;
+      left: 1%;
+    }
+
+    .gif4 {
+      top: 20%;
+      right: 1%;
+    }
+
+    .gif5 {
+      top: 35%;
+      left: 1%;
+    }
+
+    .gif6 {
+      top: 35%;
+      right: 1%;
+    }
+
+    .gif7 {
+      bottom: 40%;
+      left: 2%;
+    }
+
+    .gif8 {
+      bottom: 20%;
+      right: 2%;
+    }
+
+    .gif9 {
+      top: 15%;
+      left: 40%;
+    }
+
+    /* New GIFs positions */
+    .gif10 {
+      bottom: 5%;
+      left: 5%;
+    }
+
+    .gif11 {
+      bottom: 5%;
+      right: 5%;
+    }
+
+    .gif12 {
+      top: 77%;
+      left: 42%;
+    }
+
+    .gif13 {
+      top: 10%;
+      right: 60%;
+    }
+
+    .gif14 {
+      top: 10%;
+      left: 65%;
+    }
+
+    .gif15 {
+      top: 0%;
+      right: 40%;
+    }
+
+    .gif16 {
+      bottom: 40%;
+      right: 0%;
+    }
+
+    .gif17 {
+      top: 70%;
+      left: 2%;
+    }
+
+    .gif18 {
+      top: 74%;
+      right: 60%;
+    }
+
+    .gif19 {
+      top: 73%;
+      right: 25%;
+    }
+
+
+
+
+    .container {
+      top: 30px;
+      width: 100%;
+      max-width: 450px;
+      position: relative;
+      z-index: 10;
+      /* Above GIFs */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 100px;
+      /* Space for button */
+    }
+
+    .card-stack {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+        url('https://images.pexels.com/photos/30908987/pexels-photo-30908987.jpeg') no-repeat center center;
+      background-size: cover;
+      border-radius: 5px;
+      padding: 20px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+
+      /* Smooth Transition Settings */
+      opacity: 0;
+      filter: blur(10px);
+      transform: translateY(30px) scale(0.9);
+      transition:
+        opacity 0.8s ease,
+        transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+        filter 0.8s ease;
+
+      pointer-events: none;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .active-card {
+      opacity: 1;
+      filter: blur(0px);
+      transform: translateY(0) scale(1);
+      z-index: 15;
+      pointer-events: all;
+    }
+
+    .exit-card {
+      opacity: 0;
+      filter: blur(5px);
+      transform: translateY(-80px) rotate(-8deg) scale(0.85);
+      transition: all 0.7s ease-in;
+    }
+
+    .card-content {
+      font-size: 20px;
+      line-height: 1.5;
+      color: white;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+    }
+
+    .controls {
+      position: fixed;
+      bottom: 40px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      z-index: 100;
+      /* Highest priority */
+    }
+
+    .btn {
+      padding: 16px 50px;
+      border-radius: 50px;
+      border: none;
+      background: black;
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .final-btn {
+      background: linear-gradient(45deg, #ff6f91, #ff3e6c);
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      .bg-gif {
+        width: 55px;
+      }
+
+      .card-stack {
+        width: 250px;
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <img src="https://media1.tenor.com/m/br1EzmXTxKUAAAAC/a-y-r-ronaldito.gif" class="bg-gif gif1">
+  <img src="https://media.tenor.com/N6z7fKyQXCgAAAA1/bubu-dudu-bubu.webp" class="bg-gif gif2">
+  <img src="https://media.tenor.com/UXLmgQdkDesAAAA1/robert-bri.webp" class="bg-gif gif3">
+  <img src="https://media.tenor.com/Rvqhj0q2_BkAAAA1/dudu-bubu-hit.webp" class="bg-gif gif4">
+  <img src="https://media.tenor.com/rOiSuwloJpsAAAA1/emrananhret.webp" class="bg-gif gif5">
+  <img src="https://media.tenor.com/0eRV1ZyrO80AAAA1/dudu-bubu-in-bed-dudu.webp" class="bg-gif gif6">
+  <img src="https://media.tenor.com/9ErXxMMRA1EAAAA1/dudu-bubu-dudu-giving-showers-bubu.webp" class="bg-gif gif7">
+  <img src="https://media.tenor.com/pzVsStw-GakAAAA1/good-morning.webp" class="bg-gif gif8">
+  <img src="https://media.tenor.com/0VGa02b2pWEAAAA1/notice-me-dudu-dudu-sorry.webp" class="bg-gif gif9">
+  <img src="https://media.tenor.com/yZZoDKXhRWYAAAA1/dudu-scared-bubu-dudu-kiss.webp" class="bg-gif gif10">
+  <img src="https://media.tenor.com/RZ7pYcEc-UgAAAA1/bubu-bubu-dudu.webp" class="bg-gif gif11">
+  <img src="https://media.tenor.com/y5aTR7z4PbUAAAA1/bubu-dudu-dudu-sad.webp" class="bg-gif gif12">
+  <img src="https://media.tenor.com/d7l0hbpEnfcAAAA1/reply-me.webp" class="bg-gif gif13">
+  <img src="https://media.tenor.com/U7CHlSS2ilQAAAA1/cat-lol.webp" class="bg-gif gif14">
+  <img src="https://media.tenor.com/COarRWzyCGcAAAA1/dudu-bubu-love-gif.webp" class="bg-gif gif15">
+  <img
+    src="https://media.tenor.com/sevdSsFXoK0AAAA1/bubu-laugh-but-with-new-couch-coz-like-my-bf-doesnt-share-couches-bubu-laughing.webp"
+    class="bg-gif gif16">
+  <img src="https://media.tenor.com/dKCmjS7P5PoAAAA1/bubu-dudu-sseeyall.webp" class="bg-gif gif17">
+  <img src="https://media.tenor.com/f9qL539NoCsAAAA1/bubu-dudu-sseeyall.webp" class="bg-gif gif18">
+  <img src="https://media.tenor.com/5k3a3_4nz9cAAAA1/dudu-flower.webp" class="bg-gif gif19">
+
+
+  <div class="container">
+    <div class="card-stack">
+      <div class="card active-card">
+        <div class="card-content">I am the happiest when I am with you… 💖</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn" onclick="nextCard()" id="btn">NEXT💖</button>
+  </div>
+
+  <script>
+    const messages = [
+      "You are my comfort zone…",
+      "Even when you show attitude in chat 😏…",
+      "I  love that too… 💖",
+      "When you are with me in real…",
+      "The way you care… the way you look at me…",
+      "Everything feels so lovely…",
+      "I feel like I am the luckiest person in this world 😭💖",
+      "I am so happy to have you in my life…",
+      "Not only you… I love your family too… 💖",
+      "I dream of a life with you…",
+      "With our families… our kids… our future… 💫",
+      "I know we are going through a hard phase now…",
+      "But one day… we will grow… we will succeed together… 💖",
+      "I want to give you everything…",
+      "PS5… dresses… jerseys… shoes… watches… chocolates 💖",
+      "We will go on late night rides…",
+      "Travel the world… try different foods…",
+      "And build our own beautiful life…",
+      "I know it is hard to convince our parents…",
+      "Because of our religion…",
+      "But we will try our best…",
+      "And I believe one day they will accept us… 💖",
+      "I will wait for you till my last breath…",
+      "Our love and patience will make everything right…",
+      "I have one small wish… 🥺",
+      "After our whole life… with our kids and grandchildren…",
+      "I wish I die first…",
+      "Because I can’t imagine a world without you… 💔",
+      "I don’t know if you are always happy with me…",
+      "But I believe you are…",
+      "And me… I am more than happy with you 💖",
+      "Thank you for being with me…",
+      "You are the best decision of my life…",
+      "Please stay with me forever… 💖",
+      "I love you… I need you… I miss you…",
+      "And I am sorry if I ever hurt you… 🥺💖",
+      "Forever yours… ❤️"
+    ];
+
+    const stack = document.querySelector('.card-stack');
+    const btn = document.getElementById('btn');
+    let currentCardIndex = 0;
+
+    // Initialize cards
+    messages.forEach((msg, i) => {
+      if (i === 0) return; // Skip first because it's hardcoded
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `<div class="card-content">${msg}</div>`;
+      stack.appendChild(card);
+    });
+
+    const cards = document.querySelectorAll('.card');
+
+    function nextCard() {
+      if (currentCardIndex < cards.length - 1) {
+        cards[currentCardIndex].classList.remove('active-card');
+        cards[currentCardIndex].classList.add('exit-card');
+        currentCardIndex++;
+        cards[currentCardIndex].classList.add('active-card');
+
+        if (currentCardIndex === cards.length - 1) {
+          btn.innerText = "CONTINUE 💖";
+          btn.classList.add('final-btn');
+          btn.onclick = function () {
+            window.location.href = "last.html";
+          };
+        }
+      }
+    }
+  </script>
+
+</body>
+
+</html>

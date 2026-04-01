@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Temple Run: White Heart Quest</title>
+  <style>
+    :root {
+      --bg-dark: #0a1a1a;
+      --panel-bg: #1e403a;
+      --accent-gold: #ffcc77;
+      --heart-white: #ffffff;
+      --heart-broken: #ff4444;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      height: 100vh;
+      background: var(--bg-dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      overflow: hidden;
+      /* Prevent scrolling */
+    }
+
+    /* Main Container - Strict Mobile Framing */
+    .game-container {
+      width: 100%;
+      max-width: 420px;
+      /* Standard Mobile Width */
+      height: 95vh;
+      max-height: 800px;
+      background: linear-gradient(145deg, #1e403a, #0f2e2a);
+      /* border-radius: 40px; */
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+      /* border: 1px solid rgba(255, 204, 119, 0.2); */
+    }
+
+    canvas {
+      flex-grow: 1;
+      width: 100%;
+      height: auto;
+      /* border-radius: 5px; */
+      background: #1e554b;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Stats Panel */
+    .stats-panel {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      margin: 12px 0;
+      padding: 10px 20px;
+      /* border-radius: 50px; */
+      color: var(--accent-gold);
+    }
+
+    .stat-box {
+      font-weight: bold;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      gap: 15px;
+      padding-bottom: 5px;
+    }
+
+    .arrow-btn {
+      flex: 1;
+      background: linear-gradient(145deg, #2c5538, #1e3a2a);
+      border: none;
+      border-radius: 7px;
+      padding: 18px;
+      font-size: 1.5rem;
+      color: var(--accent-gold);
+      box-shadow: 0 5px 0 #0e2a1a;
+      active: translateY(3px);
+    }
+
+    .arrow-btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 #0e2a1a;
+    }
+
+    /* Overlay Styles */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      text-align: center;
+      /* border-radius: 40px; */
+    }
+
+    .instruction-card {
+      color: #fff;
+    }
+
+    .instruction-card h1 {
+      color: var(--accent-gold);
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+    }
+
+    .info-row {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 12px;
+      border-radius: 15px;
+      margin: 10px 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    .start-btn {
+      background: var(--accent-gold);
+      color: #000;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 25px;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .hide {
+      display: none !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="game-container">
+    <div id="startScreen" class="overlay">
+      <div class="instruction-card">
+        <h1>INSTRUCTIONS</h1>
+
+        <div class="info-row">
+          <span style="font-size: 1.5rem;">🎮</span>
+          <p>Use <b>LEFT</b> and <b>RIGHT</b> arrows to switch lanes.</p>
+        </div>
+
+        <div class="info-row">
+          <span style="font-size: 1.5rem;">🤍</span>
+          <p>Collect <b>10 White Hearts</b> to win.</p>
+        </div>
+
+        <div class="info-row" style="border: 1px solid #ff444455">
+          <span style="font-size: 1.5rem;">💔</span>
+          <p>Avoid <b>Broken Hearts</b>! One hit means Restart.</p>
+        </div>
+
+        <button class="start-btn" onclick="startGame()">START GAME</button>
+      </div>
+    </div>
+
+    <div id="statusOverlay" class="overlay hide">
+      <h1 id="statusTitle" style="font-size: 2.5rem;"></h1>
+      <p id="statusMsg" style="color: #ccc; margin: 15px 0;"></p>
+      <button id="actionBtn" class="start-btn"></button>
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <div class="stats-panel">
+      <div class="stat-box">🤍 <span id="heartCount">0</span>/10</div>
+      <div class="stat-box">PTS: <span id="scoreValue">0</span></div>
+    </div>
+
+    <div class="controls">
+      <button class="arrow-btn" onpointerdown="moveLeft()">◀</button>
+      <button class="arrow-btn" onpointerdown="moveRight()">▶</button>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Responsive Canvas Resizing
+    function resize() {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    let gameActive = false;
+    let hearts = 0;
+    let score = 0;
+    let lane = 1; // 0, 1, 2
+    let obstacles = [];
+    let frame = 0;
+
+    function startGame() {
+      document.getElementById('startScreen').classList.add('hide');
+      document.getElementById('statusOverlay').classList.add('hide');
+      hearts = 0;
+      score = 0;
+      lane = 1;
+      obstacles = [];
+      gameActive = true;
+      updateUI();
+      animate();
+    }
+
+    function moveLeft() { if (lane > 0) lane--; }
+    function moveRight() { if (lane < 2) lane++; }
+
+    function updateUI() {
+      document.getElementById('heartCount').innerText = hearts;
+      document.getElementById('scoreValue').innerText = score;
+    }
+
+    function endGame(win) {
+      gameActive = false;
+      const overlay = document.getElementById('statusOverlay');
+      const title = document.getElementById('statusTitle');
+      const msg = document.getElementById('statusMsg');
+      const btn = document.getElementById('actionBtn');
+
+      overlay.classList.remove('hide');
+      if (win) {
+        title.innerText = "VICTORY";
+        title.style.color = "#ffcc77";
+        msg.innerText = "You collected all 10 hearts!";
+        btn.innerText = "CONTINUE";
+        btn.onclick = () => { window.location.href = '2quiz.html'; };
+      } else {
+        title.innerText = "CRASHED";
+        title.style.color = "#ff4444";
+        msg.innerText = "You hit a broken heart.";
+        btn.innerText = "RETRY";
+        btn.onclick = startGame;
+      }
+    }
+
+    function animate() {
+      if (!gameActive) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw Lanes
+      ctx.strokeStyle = "rgba(255,255,255,0.1)";
+      ctx.lineWidth = 2;
+      for (let i = 1; i < 3; i++) {
+        ctx.beginPath();
+        ctx.moveTo(i * (canvas.width / 3), 0);
+        ctx.lineTo(i * (canvas.width / 3), canvas.height);
+        ctx.stroke();
+      }
+
+      // Runner (Simple Box Representation)
+      const laneWidth = canvas.width / 3;
+      const playerX = (lane * laneWidth) + (laneWidth / 2) - 20;
+      const playerY = canvas.height - 80;
+
+      ctx.fillStyle = "#f3a45b";
+      ctx.fillRect(playerX, playerY, 40, 50); // Body
+      ctx.fillStyle = "#ffcc77";
+      ctx.fillRect(playerX + 5, playerY - 15, 30, 20); // Head
+
+      // Obstacles
+      if (frame % 40 === 0) {
+        obstacles.push({
+          x: Math.floor(Math.random() * 3) * laneWidth + (laneWidth / 2),
+          y: -50,
+          type: Math.random() > 0.3 ? 'white' : 'broken'
+        });
+      }
+
+      obstacles.forEach((obj, index) => {
+        obj.y += 5;
+        ctx.font = "30px Arial";
+        ctx.fillText(obj.type === 'white' ? "🤍" : "💔", obj.x - 15, obj.y);
+
+        // Collision
+        if (obj.y > playerY && obj.y < playerY + 50 && Math.abs(obj.x - (lane * laneWidth + laneWidth / 2)) < 10) {
+          if (obj.type === 'white') {
+            hearts++;
+            score += 100;
+            obstacles.splice(index, 1);
+            updateUI();
+            if (hearts >= 10) endGame(true);
+          } else {
+            endGame(false);
+          }
+        }
+      });
+
+      obstacles = obstacles.filter(o => o.y < canvas.height);
+      frame++;
+      requestAnimationFrame(animate);
+    }
+  </script>
+</body>
+
+</html>

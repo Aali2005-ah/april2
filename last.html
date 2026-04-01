@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>என்றும் உன்னோடு 💖</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;600;800&family=Poppins:wght@400;600&display=swap"
+        rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Tiro+Tamil:ital@0;1&family=Noto+Serif+Tamil:wght@300;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --bg-light: #f8f9fa;
+            --text-dark: #444;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-light);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            /* Prevents bounce scrolling on mobile */
+        }
+
+        /* The Main White Container */
+        .card {
+            width: 90%;
+            max-width: 360px;
+            height: 85vh;
+            /* Responsive height for mobile */
+            max-height: 600px;
+            background: #ffffff;
+            border-radius: 2px;
+            position: relative;
+            /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            /* Spreads content evenly */
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            transition: filter 0.3s ease;
+        }
+
+        /* GIF Placement - Scaled for mobile */
+        .gif {
+            position: absolute;
+            width: 65px;
+            height: auto;
+            z-index: 1;
+        }
+
+        .g1 {
+            top: 10px;
+            left: 10px;
+        }
+
+        .g2 {
+            top: 10px;
+            right: 10px;
+        }
+
+        .g3 {
+            bottom: 10px;
+            left: 10px;
+        }
+
+        .g4 {
+            bottom: 10px;
+            right: 10px;
+        }
+
+        /* Unique Tamil Heading */
+        .tamil-head {
+            font-family: 'Tiro Tamil', serif;
+            color: var(--primary);
+            font-size: 22px;
+            font-weight: 800;
+            margin-top: 20px;
+            margin-bottom: 0;
+        }
+
+        /* Poem Styling */
+        .poem-content {
+            font-family: 'Noto Serif Tamil', serif;
+            font-size: 14px;
+            /* Reduced for neatness */
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin: 10px 0;
+            flex-grow: 1;
+            /* Allows the poem to take center space */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .btn-box {
+            width: 100%;
+            padding-bottom: 79px;
+        }
+
+        .btn {
+            width: 80%;
+            padding: 12px;
+            border-radius: 50px;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            z-index: 100;
+        }
+
+        .btn-main {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 77, 109, 0.3);
+        }
+
+        .btn-main:active {
+            transform: scale(0.95);
+        }
+
+        /* Blur Overlay */
+        #blur-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+        }
+
+        .popup {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            width: 80%;
+            max-width: 280px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .blurred {
+            filter: blur(10px);
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card" id="mainCard">
+        <img src="images/g1.gif" class="gif g1" alt="love-gif">
+        <img src="images/g2.gif" class="gif g2" alt="love-gif">
+        <img src="images/g3.gif" class="gif g3" alt="love-gif">
+        <img src="images/g4.gif" class="gif g4" alt="love-gif">
+
+        <h2 class="tamil-head">உன்னில் தொலைந்தேன்…💖</h2>
+
+        <div class="poem-content">
+            <p>
+                கேளாமலே கையில் வந்த<br>கட்டித் தங்கம் நீயே<br>
+                தள்ளாமலே தள்ளாடுறேன் நானே...<br>
+                முதல் முறை அழகுன்னு அட<br>எனக்கு நான் தெரிஞ்சேன்<br>
+                ஒரு முறை உன்னை நெருங்கையில்<br>
+                பல முறை தொலைஞ்சேன்
+            </p>
+        </div>
+
+        <div class="btn-box">
+            <button class="btn btn-main" onclick="openMessage()">Click Here Fast! ⚡</button>
+        </div>
+    </div>
+
+    <div id="blur-overlay">
+        <div class="popup">
+            <h3 style="color: var(--primary); font-family: 'Baloo Thambi 2';">🦋</h3>
+            <p style="font-size: 13px; color: #666;">Please send me the <strong>🦋 butterfly </strong> emoji in whatsapp  along with how much you like this gift out of 100😅</p>
+            <button class="btn btn-main" style="width: 100%;" onclick="window.location.href='index.html'">Visit Again 💝</button>
+        </div>
+    </div>
+
+    <script>
+        function openMessage() {
+            document.getElementById('blur-overlay').style.display = 'flex';
+            document.getElementById('mainCard').classList.add('blurred');
+        }
+    </script>
+
+</body>
+
+</html>

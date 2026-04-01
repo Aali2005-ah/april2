@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story 2023 - 2024 💖</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Montserrat:wght@300;900&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url('https://images.pexels.com/photos/1045541/pexels-photo-1045541.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        /* ✨ YEAR HEADING */
+        .year-header {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 8vw, 3rem);
+            font-weight: 600;
+            letter-spacing: 12px;
+            margin-top: 40px;
+            text-transform: uppercase;
+        }
+
+        /* 📸 POLAROID CONTAINER */
+        .story-wrapper {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            position: relative;
+        }
+
+        .polaroid {
+            background: #ffffff;
+            padding: 15px 15px 30px 15px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            width: 77%;
+            max-width: 320px;
+            position: absolute;
+            opacity: 0;
+            transform: scale(0.9) translateY(30px);
+            transition: all 1s cubic-bezier(0.25, 0.1, 0.25, 1);
+            pointer-events: none;
+        }
+
+        .polaroid.active {
+            opacity: 1;
+            transform: scale(1) translateY(0) rotate(0deg);
+            pointer-events: auto;
+            z-index: 2;
+        }
+
+        /* Exit animation */
+        .polaroid.exit {
+            opacity: 0;
+            transform: scale(1.1) translateY(-50px) rotate(3deg);
+        }
+
+        .polaroid img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* 🖋️ CAPTION STYLE */
+        .caption {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            padding: 20px 10px 0 10px;
+            color: #1a1a1a;
+            line-height: 1.4;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* 💖 BUTTON AREA */
+        .btn-area {
+            margin-bottom: 50px;
+            z-index: 10;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            background: whitesmoke;
+            color: black;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .btn:hover {
+            background: #fff;
+            letter-spacing: 6px;
+            transform: scale(1.05);
+        }
+
+        .final-btn {
+            background: #ff4d6d !important;
+            color: white !important;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="year-header">2025 - 2026</div>
+
+    <div class="story-wrapper" id="story-container">
+        <div class="polaroid active"><img
+                src="images/h1.jpg"
+                alt="Memory">
+            <div class="caption">Another year , Always you 💖</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h2.jpg"
+                alt="Memory">
+            <div class="caption">We watch movies together… go on trips… and make more memories 💫</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h3.jpg"
+                alt="Memory">
+            <div class="caption">But the most happiest thing… was that internship…</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h4.jpg"
+                alt="Memory">
+            <div class="caption">Numota… the place where I got to be near you 🥺</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h5.jpg"
+                alt="Memory">
+            <div class="caption">I was sooo excited… I was waiting for that moment for so long…</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h6.jpg"
+                alt="Memory">
+            <div class="caption">Whenever I saw couples in school or college…</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h7.jpg"
+                alt="Memory">
+            <div class="caption">I always wished… what if we were in the same class… meeting daily… talking daily 💭
+            </div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h8.jpg"
+                alt="Memory">
+            <div class="caption">That internship fulfilled that wish 💖</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h9.jpg"
+                alt="Memory">
+            <div class="caption">I used to look at you secretly… because some people didn’t know about us 😏</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h10.jpg"
+                alt="Memory">
+            <div class="caption">The day you came to teach me… I couldn’t control my smile… I was blushing the whole
+                time 💖</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h11.jpg"
+                alt="Memory">
+            <div class="caption">During training… different trainers came for topics…</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h12.png"
+                alt="Memory">
+            <div class="caption">But I used to complete tasks sooo fast… just so you would take my class 😭💖</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h13.jpg"
+                alt="Memory">
+            <div class="caption">I loved when you sit near me… talk to me… those moments 💫</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h14.jpg"
+                alt="Memory">
+            <div class="caption">That day when I asked for water,You went to the shop with your friend and brought it for me</div>
+        </div>
+       
+        <div class="polaroid"><img
+                src="images/h15.jpg"
+                alt="Memory">
+            <div class="caption">Those small things meant everything to me 💖</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h16.jpg"
+                alt="Memory">
+            <div class="caption">Our secret place… the store room… 😏</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h17.jpg"
+                alt="Memory">
+            <div class="caption">You kept chocolates there for me 💖</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h18.jpg"
+                alt="Memory">
+            <div class="caption">And when you went for lunch… I put the ring in your bag 💍</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h19.jpg"
+                alt="Memory">
+            <div class="caption">Those were the happiest days of my life 💫</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h20.jpg"
+                alt="Memory">
+            <div class="caption">And that white shirt day…I literally melted 😭💖</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h21.jpg"
+                alt="Memory">
+            <div class="caption">You looked sooo handsome… your face glowing ✨</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h22.jpg"
+                alt="Memory">
+            <div class="caption">I even took your photo secretly 📸</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h23.jpg"
+                alt="Memory">
+            <div class="caption">Then one day… you left the company…</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h24.jpg"
+                alt="Memory">
+            <div class="caption">I know you wanted to leave because of pressure…</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h25.jpg"
+                alt="Memory">
+            <div class="caption">But still you stayed… just to see me 🥺</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h26.jpg"
+                alt="Memory">
+            <div class="caption">After you left… everything felt normal… empty…</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h27.jpg"
+                alt="Memory">
+            <div class="caption">The days you were there… were my favourite 💖</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h28.jpg"
+                alt="Memory">
+            <div class="caption">Those Cute Butterfly Clips u gave me, I Love it moreeeeee,my favourite🤍 </div>
+        </div>
+        
+        <div class="polaroid"><img
+                src="images/h29.jpg"
+                alt="Memory">
+            <div class="caption">We did projects together… studied together, I loved learning with you 💖</div>
+        </div>
+        
+        <div class="polaroid"><img
+                src="images/h30.jpg"
+                alt="Memory">
+            <div class="caption">Our GMeet times… studying… laughing… everything 💫</div>
+        </div>
+        <div class="polaroid"><img
+                src="images/h31.jpg"
+                alt="Memory">
+            <div class="caption">And the earrings you bought me… 🥺They are sooo special because YOU chose them 💖</div>
+        </div>
+        
+    
+        <div class="polaroid"><img
+                src="images/h32.png",m
+                alt="Memory">
+            <div class="caption">The auction website idea was honestly amazing ✨</div>
+        </div>
+       
+        <div class="polaroid"><img
+                src="images/h33.jpg"
+                alt="Memory">
+            <div class="caption">I’m so happy to be part of it…And we will complete it together 💫</div>
+        </div>
+     
+        <div class="polaroid"><img
+                src="images/h34.png"
+                alt="Memory">
+            <div class="caption">We came this far… together 💖</div>
+        </div>
+      
+        <div class="polaroid"><img
+                src="images/h35.png"
+                alt="Memory">
+            <div class="caption">It will always be you… forever 💖</div>
+        </div>
+    </div>
+
+    <div class="btn-area">
+        <button class="btn" onclick="nextSlide()" id="nextBtn">NEXT</button>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.polaroid');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function nextSlide() {
+            if (currentIndex < slides.length - 1) {
+                // Add exit class to current slide
+                slides[currentIndex].classList.remove('active');
+                slides[currentIndex].classList.add('exit');
+
+                currentIndex++;
+
+                // Set next slide to active
+                slides[currentIndex].classList.add('active');
+
+                // Update button text on last slide
+                if (currentIndex === slides.length - 1) {
+                    nextBtn.innerText = "CONTINUE";
+                    nextBtn.classList.add("final-btn");
+                    nextBtn.onclick = function () {
+                        window.location.href = "game5.html";
+                    };
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
+
+

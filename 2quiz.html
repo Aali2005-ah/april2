@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tell Me About Us 💖</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #2c2c2c;
+      --accent: #d4a373;
+      --bg-card: #ffffff;
+      --text-main: #333333;
+      --text-muted: #666666;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: url('https://images.pexels.com/photos/20183432/pexels-photo-20183432.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 0;
+    }
+
+    .box {
+      position: relative;
+      z-index: 1;
+      width: 85%;
+      max-width: 380px;
+      background: var(--bg-card);
+      padding: 40px 25px;
+      border-radius: 10px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+      text-align: center;
+      /* This allows the card to grow smoothly */
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      color: var(--primary);
+      margin: 0 0 25px 0;
+      line-height: 1.3;
+    }
+
+    #response {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin: 0;
+      padding: 0;
+      /* Hide space when empty */
+      max-height: 0;
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+
+    /* Shown only when message is present */
+    #response.show {
+      max-height: 200px;
+      opacity: 1;
+      margin-bottom: 25px;
+      padding-top: 10px;
+    }
+
+    #response b {
+      color: var(--accent);
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    #options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    button {
+      outline: none;
+      border: 1px solid #f0f0f0;
+      padding: 18px;
+      border-radius: 18px;
+      background: #fafafa;
+      color: var(--text-main);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:active {
+      transform: scale(0.97);
+    }
+
+    button.selected {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+    }
+
+    .next-btn {
+      margin-top: 15px;
+      background: goldenrod;
+      color: white;
+      border: none;
+      width: 100%;
+      font-weight: 500;
+      animation: slideUpFade 0.4s ease forwards;
+    }
+
+    @keyframes slideUpFade {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box" id="card">
+    <h2 id="question"></h2>
+    <div id="response"></div>
+    <div id="options"></div>
+  </div>
+
+  <script>
+    let step = 0;
+
+    function load() {
+      const q = document.getElementById("question");
+      const r = document.getElementById("response");
+      const opt = document.getElementById("options");
+
+      // Reset card state
+      r.classList.remove("show");
+      r.innerHTML = "";
+      opt.innerHTML = "";
+
+      if (step === 0) {
+        q.innerText = "Are you happy with me? 💖";
+        create("Always 😭💖", "That’s all I ever wanted… just you being happy with me 💖", 1);
+        create("Sometimes 😏", "Ahaaa sometimes ah 😏 I’ll make it always soon 💖", 1);
+      }
+      else if (step === 1) {
+        q.innerText = "Did I ever upset you? 🥺";
+        create("Yes 😭", "I know… I trouble you a lot… but I never meant to hurt you 💖", 2);
+        create("No 💖", "Liar 😏 but thank you for handling me always 💖", 2);
+      }
+      else if (step === 2) {
+        q.innerText = "Am I too much sometimes? 😏";
+        create("Yes 😂", "I knowwww 😭 but I just need you more 💖", 3);
+        create("No 💖", "You better say that 😏💖", 3);
+      }
+      else if (step === 3) {
+        q.innerText = "Why do you still stay with me? 🥺";
+        create("Because I love you 💖", "That’s enough… I don’t need anything else 💖", 4);
+        create("Because you are mine 😏", "Yesss I am yours only 💖", 4);
+      }
+      else if (step === 4) {
+        q.innerText = "Final one… 😭";
+        create("You are my everything 💖", "You are my home… my peace… my person 💖", 5);
+        create("I will never leave you 💖", "That’s all I need… just stay 💖", 5);
+      }
+      else if (step === 5) {
+        q.innerText = "No matter what happens…";
+        r.innerText = "I know I fight… I trouble you… I act childish… but I love you more than anything 😭💖";
+        r.classList.add("show");
+
+        const btn = document.createElement("button");
+        btn.innerText = "Continue 💖";
+        btn.classList.add("next-btn");
+        btn.onclick = () => { window.location.href = "final.html"; };
+        opt.appendChild(btn);
+      }
+    }
+
+    function create(text, reply, next) {
+      const btn = document.createElement("button");
+      btn.innerText = text;
+
+      btn.onclick = () => {
+        const r = document.getElementById("response");
+        const opt = document.getElementById("options");
+
+        btn.classList.add("selected");
+        const allBtns = opt.querySelectorAll("button");
+        allBtns.forEach(b => b.disabled = true);
+
+        // Show response cleanly on the card surface
+        r.innerHTML = `<b>You chose ${text}</b>${reply}`;
+        r.classList.add("show");
+
+        const nextBtn = document.createElement("button");
+        nextBtn.innerText = "Next ";
+        nextBtn.classList.add("next-btn");
+
+        nextBtn.onclick = () => {
+          document.getElementById("card").style.opacity = '0';
+          document.getElementById("card").style.transform = 'scale(0.95)';
+          setTimeout(() => {
+            step = next;
+            load();
+            document.getElementById("card").style.opacity = '1';
+            document.getElementById("card").style.transform = 'scale(1)';
+          }, 400);
+        };
+
+        opt.appendChild(nextBtn);
+      };
+
+      document.getElementById("options").appendChild(btn);
+    }
+
+    load();
+  </script>
+</body>
+
+</html>

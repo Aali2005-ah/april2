@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Our Story Puzzle 💖</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --accent-color: #d4af37;
+      --text-main: #ffffff;
+      --text-muted: #e0e0e0;
+      --overlay: rgba(0, 0, 0, 0.5);
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(var(--overlay), var(--overlay)),
+        url('https://images.pexels.com/photos/888899/pexels-photo-888899.jpeg');
+      background-size: cover;
+      background-position: center;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      /* Strict one-page fit */
+      width: 100vw;
+      overflow: hidden;
+    }
+
+    /* Header: Reduced margins for tight fit */
+    .header {
+      padding: 0 10px;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      margin: 0 0 2px 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .instructions {
+      font-size: 11px;
+      color: var(--text-muted);
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    /* Grid: Reduced card sizes to make room for the message */
+    .container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      padding: 10px;
+      width: 90%;
+      max-width: 320px;
+      transition: opacity 0.5s ease;
+    }
+
+    .card {
+      position: relative;
+      border-radius: 8px;
+      aspect-ratio: 1 / 1;
+      /* Square for better mobile height fit */
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.8);
+    }
+
+    .card.selected {
+      transform: scale(0.92);
+      border-color: #d4af37;
+      box-shadow: 0 0 15px #d4af37;
+    }
+
+      #msg {
+        font-size: 12px;
+        color: #ff5252;
+        height: 15px;
+        margin: 5px 0;
+      }
+
+      /* WIN SECTION: Now fits perfectly below images */
+      #win {
+        display: none;
+        text-align: center;
+        width: 90%;
+        animation: fadeInUp 0.6s ease-out forwards;
+      }
+
+      #win p {
+        font-family: 'Dancing Script', cursive;
+        /* Unique font */
+        font-size: 22px;
+        margin: 10px 0;
+        background: linear-gradient(to right, #fff, var(--accent-color), #fff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        /* Gold highlight effect */
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+      }
+
+      button {
+        padding: 10px 25px;
+        border: 1px solid var(--accent-color);
+        background: rgba(212, 175, 55, 0.1);
+        color: var(--accent-color);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        backdrop-filter: blur(5px);
+        cursor: pointer;
+        border-radius: 4px;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <h2>Our Story in Moments</h2>
+    <div class="instructions">Arrange these memories in the order they happened…<br>
+      From our first year to now 😏✨<br><br>
+      Tap each picture in the correct sequence 💕
+    </div>
+  </div>
+  </div>
+
+  <div id="msg"></div>
+
+  <div class="container" id="game"></div>
+
+  <div id="win">
+    <p>You remembered every moment perfectly 🌙</p>
+    <button onclick="next()">Continue</button>
+  </div>
+
+  <script>
+    const correct = [
+      "./images/b3.jpg",
+      "./images/d2.png",
+      "./images/d3.jpg",
+      "./images/d4.png"
+    ];
+
+    let shuffled = [...correct].sort(() => Math.random() - 0.5);
+    let game = document.getElementById("game");
+    let user = [];
+
+    shuffled.forEach(src => {
+      let div = document.createElement("div");
+      div.classList.add("card");
+      let img = document.createElement("img");
+      img.src = src;
+      div.appendChild(img);
+      div.onclick = function () {
+        if (div.classList.contains("selected")) return;
+        div.classList.add("selected");
+        user.push(src);
+        check();
+      };
+      game.appendChild(div);
+    });
+
+    function check() {
+      for (let i = 0; i < user.length; i++) {
+        if (user[i] !== correct[i]) {
+          document.getElementById("msg").innerText = "Oops 😏 Wrong. Try again! ✨";
+          setTimeout(() => location.reload(), 1200);
+          return;
+        }
+      }
+      if (user.length === correct.length) {
+        document.getElementById("msg").style.display = "none";
+        document.getElementById("win").style.display = "block";
+        game.style.opacity = "0.4";
+        game.style.pointerEvents = "none";
+      }
+    }
+
+    function next() {
+      window.location.href = "year4.html";
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Growing Love 💖</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;500;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* 🌌 BACKGROUND & BASE */
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      /* Using a warm, dark aesthetic similar to the reference */
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url('https://images.pexels.com/photos/9171331/pexels-photo-9171331.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    /* ✨ HEADER */
+    .year-header {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 600;
+      letter-spacing: 10px;
+      margin-top: 50px;
+      text-transform: uppercase;
+    }
+
+    /* 📸 POLAROID CONTAINER */
+    .story-wrapper {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      position: relative;
+    }
+
+    .polaroid {
+      background: #ffffff;
+      padding: 15px 15px 35px 15px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+      width: 77%;
+      max-width: 320px;
+      position: absolute;
+      opacity: 0;
+      transform: scale(0.9) translateY(30px);
+      transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+      pointer-events: none;
+    }
+
+    .polaroid.active {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      pointer-events: auto;
+    }
+
+    /* The Exit Animation from your style */
+    .polaroid.exit {
+      opacity: 0 !important;
+      transform: scale(1.1) translateY(-40px) rotate(2deg) !important;
+    }
+
+    .polaroid img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
+      background: #eee;
+      /* Placeholder color before image loads */
+    }
+
+    /* 🖋️ CAPTION STYLE */
+    .caption {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      padding: 25px 10px 0 10px;
+      color: #1a1a1a;
+      line-height: 1.4;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* 💖 BUTTON AREA */
+    .btn-area {
+      margin-bottom: 60px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      background: whitesmoke;
+      color: black;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+
+    .btn:hover {
+      background: white;
+      letter-spacing: 5px;
+      transform: translateY(-2px);
+    }
+
+    .exit {
+      background: #ff4d6d;
+      color: white;
+      border: none;
+    }
+    
+  </style>
+</head>
+
+<body>
+
+  <div class="year-header">2023 - 2024</div>
+
+  <div class="story-wrapper" id="container">
+  </div>
+
+  <div class="btn-area">
+    <button class="btn" onclick="nextLine()" id="btn">Next</button>
+  </div>
+
+  <img src="images/e" alt="">
+
+  <script>
+    const storyLines = [
+      { text: "One day as I instructed u came to see me morning at church ", img: "images/e1.jpg" },
+      { text: "There Some people misunderstand you and it hurt me deeply 💔", img: "images/e2.jpg" },
+      { text: "But the next day you take risk and  came again just to see me 💖", img: "images/e3.jpg" },
+      { text: "And that meant everything to me…", img: "images/e4.jpg" },
+      { text: "Then came my birthday… 🎁", img: "images/e5.jpg" },
+      { text: "You gave me my favorite gift… my Ronaldo jersey 😭💖", img: "images/e6.jpg" },
+      { text: "I was so happy that day… I’ll never forget it ✨", img: "images/e7.jpg" },
+      { text: "When I finally got my phone… I thought everything would be perfect 📱", img: "images/e8.jpg" },
+      { text: "We could talk anytime… like I always wanted…", img: "images/e9.jpg" },
+      { text: "Even when you were busy… I just wanted you all the time 💖", img: "images/e10.jpg" },
+      { text: "You had your responsibilities… your work… your classes…", img: "images/e11.jpg" },
+      { text: "That time… I didn’t understand everything…", img: "images/e12.jpg" },
+      { text: "I just wanted you… always 😌", img: "images/e13.jpg" },
+      { text: "That college… I felt so alone…", img: "images/e14.jpg" },
+      { text: "So I held on to you even tighter 💖", img: "images/e15.jpg" },
+      { text: "Miles apart… but never apart in heart 💫", img: "images/e16.jpg" },
+      { text: "Then one day… I saw you again… after so long 😭💖", img: "images/e17.jpg" },
+      { text: "I couldn’t stop smiling… I was so happy…", img: "images/e18.jpg" },
+      { text: "Our first bike ride together… my happiest little dream ✨", img: "images/e19.png" },
+      { text: "We went out… had juice… laughed…", img: "images/e20.jpg" },
+      { text: "And yes… I stole that straw 😏", img: "images/e21.jpg" },
+      { text: "But you didn’t get angry… you just smiled…", img: "images/e22.jpg" },
+      { text: "You always protect my inner child 💖", img: "images/e23.jpg" },
+      { text: "We fought… we fixed… we stayed 💖", img: "images/e24.jpg" },
+      { text: "And that’s what makes us… us 💫", img: "images/e25.jpg" }
+    ];
+
+    let index = 0;
+    const container = document.getElementById("container");
+    const btn = document.getElementById("btn");
+
+    function createPolaroid(data) {
+      const div = document.createElement("div");
+      div.className = "polaroid";
+      div.innerHTML = `
+                <img src="${data.img}" alt="Memory">
+                <div class="caption">${data.text}</div>
+            `;
+      container.appendChild(div);
+      // Small delay to trigger CSS transition
+      setTimeout(() => div.classList.add("active"), 50);
+      return div;
+    }
+
+    // Initialize first slide
+    let currentPolaroid = createPolaroid(storyLines[0]);
+
+    function nextLine() {
+      if (index < storyLines.length - 1) {
+        // Animate current one out
+        currentPolaroid.classList.add("exit");
+        currentPolaroid.classList.remove("active");
+
+        index++;
+
+        // Create and animate next one in
+        currentPolaroid = createPolaroid(storyLines[index]);
+
+        // Update Button at the end
+        if (index === storyLines.length - 1) {
+          btn.innerText = "Continue";
+          btn.classList.add("final");
+          btn.onclick = () => window.location.href = "game3.html";
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>

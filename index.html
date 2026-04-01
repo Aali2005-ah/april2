@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Our Anniversary 🌙</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --moon-white: #ffffff;
+            --gold: #d4af37;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            /* Updated Background Section */
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url('https://images.pexels.com/photos/6272237/pexels-photo-6272237.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+        }
+
+        /* ✨ Sky */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.1;
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.1);
+            }
+        }
+
+        /* 🌙 Moon */
+        .moon-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 2s cubic-bezier(0.19, 1, 0.22, 1);
+            z-index: 20;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+        }
+
+        .moon {
+            width: 110px;
+            height: 110px;
+            background: var(--moon-white);
+            box-shadow: 0 0 40px #fff, 0 0 80px rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .moon-up {
+            top: 15%;
+            /* Adjusted slightly for better framing with background */
+            transform: translate(-50%, 0) scale(0.6);
+        }
+
+        .hint {
+            margin-top: 20px;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 6px;
+            font-size: 10px;
+            text-transform: uppercase;
+            animation: pulseText 3s infinite;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes pulseText {
+
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* 💌 Message */
+        .message {
+            width: 85%;
+            max-width: 400px;
+            text-align: center;
+            z-index: 10;
+            position: absolute;
+            top: 30%;
+            display: none;
+            padding: 20px;
+            /* background: rgba(0, 0, 0, 0.2); */
+            /* Subtle glass effect */
+            backdrop-filter: blur(2px);
+            border-radius: 15px;
+        }
+
+        .message.active {
+            display: block;
+        }
+
+        .title-anim {
+            font-family: 'Cinzel', serif;
+            font-size: 22px;
+            font-weight: 700;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #fff, var(--gold), #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
+            letter-spacing: 2px;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .sub {
+            font-weight: 400;
+            /* Increased weight for readability over image */
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        /* 💎 THE NOTICABLE UNIQUE BUTTON */
+        .btn-holder {
+            margin-top: 40px;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards 1s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .btn-portal {
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: #fff;
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-size: 11px;
+            padding: 18px 25px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .btn-portal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: borderGlow 4s infinite ease-in-out;
+        }
+
+        @keyframes borderGlow {
+
+            0%,
+            100% {
+                border-color: rgba(255, 255, 255, 0.2);
+                transform: scale(1);
+            }
+
+            50% {
+                border-color: var(--gold);
+                transform: scale(1.05);
+                box-shadow: 0 0 20px var(--gold);
+            }
+        }
+
+        /* 🌹 Minimal Petals */
+        .petal {
+            position: absolute;
+            background: #ff4d6d;
+            /* Lightened the red to pop against the dark background */
+            width: 8px;
+            height: 8px;
+            border-radius: 50% 0 50% 0;
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0.6;
+            animation: drift linear infinite;
+        }
+
+        @keyframes drift {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="stars"></div>
+
+    <div class="moon-container" id="moonWrap" onclick="reveal()">
+        <div class="moon"></div>
+        <div class="hint" id="hint">Touch the moon, my sunshine</div>
+    </div>
+
+    <div class="message" id="msg">
+        <div class="title-anim">Happy 4th Anniversary My Love ❤️</div>
+        <div class="sub">That quiet night when I said yes to you...<br>I became the luckiest person in the world.</div>
+        <div class="sub">Every moment with you feels like <br>a beautiful dream.</div>
+
+        <div class="btn-holder">
+            <button class="btn-portal" onclick="next()">Enter Our World</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        const stars = document.getElementById('stars');
+        for (let i = 0; i < 40; i++) { /* Reduced count slightly so background image isn't too crowded */
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 2;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.setProperty('--duration', (Math.random() * 3 + 3) + 's');
+            stars.appendChild(star);
+        }
+
+        function startPetals() {
+            setInterval(() => {
+                const petal = document.createElement('div');
+                const colors = ['#ff4d6d', '#ff758f', '#c9184a']; // Varied rose colors
+                petal.className = 'petal';
+                petal.style.background = colors[Math.floor(Math.random() * colors.length)];
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.animationDuration = (Math.random() * 7 + 8) + 's';
+                document.body.appendChild(petal);
+                setTimeout(() => petal.remove(), 15000);
+            }, 2000);
+        }
+
+        function reveal() {
+            const moonWrap = document.getElementById('moonWrap');
+            const msg = document.getElementById('msg');
+            const hint = document.getElementById('hint');
+
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ffffff', '#d4af37', '#ff4d6d']
+            });
+
+            moonWrap.classList.add('moon-up');
+            hint.style.display = 'none';
+
+            setTimeout(() => {
+                msg.classList.add('active');
+                startPetals();
+            }, 1200);
+        }
+
+        function next() {
+            document.body.style.transition = "opacity 2s ease";
+            document.body.style.opacity = "0";
+            setTimeout(() => {
+                // Ensure choice.html exists in your project folder!
+                window.location.href = "choice.html";
+            }, 2000);
+        }
+    </script>
+
+</body>
+
+</html>

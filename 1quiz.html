@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Aura | The Heart's Record</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&family=Tenor+Sans&display=swap');
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      height: 100dvh;
+      /* Using the warm aesthetic background from your reference */
+      background: #000 url('https://images.pexels.com/photos/30325211/pexels-photo-30325211.jpeg') no-repeat center center;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Montserrat', sans-serif;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    body::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%);
+      z-index: 1;
+    }
+
+    .glass-shell {
+      position: relative;
+      z-index: 2;
+      width: 95%;
+      max-width: 370px;
+      height: 85dvh;
+      /* background: rgba(255, 255, 255, 0.05); */
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      /* border: 0.5px solid rgba(255, 255, 255, 0.2); */
+      /* border-radius: 2px; */
+      padding: 0px 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      animation: reveal 1.2s ease-out;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    header {
+      text-align: center;
+      border-bottom: 0.5px solid rgba(255, 255, 255, 0.2);
+      padding-bottom: 10px;
+    }
+
+    header h1 {
+      font-family: 'Tenor Sans', sans-serif;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 6px;
+      margin: 0;
+      font-weight: 400;
+    }
+
+    .stack {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 15px;
+      margin: 10px 0;
+    }
+
+    .q-item {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .q-text {
+      font-size: 0.75rem;
+      font-weight: 400;
+      line-height: 1.4;
+      letter-spacing: 0.5px;
+      color: rgba(255, 255, 255, 0.85);
+      text-transform: uppercase;
+    }
+
+    .options {
+      display: flex;
+      gap: 1px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2px;
+    }
+
+    .btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      padding: 10px 0;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .btn.selected {
+      background: white;
+      color: black;
+      font-weight: 400;
+    }
+
+    .footer-action {
+      text-align: center;
+    }
+
+    .submit-btn {
+      width: 90%;
+      margin-top: 10px;
+      background: whitesmoke;
+      border: 0.5px solid white;
+      color: black;
+      padding: 10px;
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: 0.4s;
+    }
+
+    .submit-btn:active {
+      background: white;
+      color: black;
+    }
+
+    #msg {
+      font-size: 0.6rem;
+      height: 12px;
+      margin-top: 10px;
+      color: #ffb3c1;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* Popup Overlay */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.98);
+      z-index: 10;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .popup {
+      width: 85%;
+      border: 0.5px solid rgba(255, 255, 255, 0.2);
+      padding: 40px 25px;
+      text-align: center;
+    }
+
+    .popup h3 {
+      font-family: 'Tenor Sans', sans-serif;
+      letter-spacing: 5px;
+      font-weight: 400;
+      margin-bottom: 30px;
+    }
+
+    #resultText {
+      text-align: left;
+      font-size: 0.65rem;
+      margin-bottom: 30px;
+    }
+
+    .res-row {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .next-btn {
+      background: white;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="glass-shell">
+    <header>
+      <h1>The Record</h1>
+    </header>
+
+    <div class="stack">
+      <div class="q-item">
+        <span class="q-text">01. Did you like me the first time you saw me? 😌</span>
+        <div class="options">
+          <button class="btn" onclick="select(this,1,'YES')">YES</button>
+          <button class="btn" onclick="select(this,1,'NO')">NO</button>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <span class="q-text">02. Did you feel I had too much attitude then? 😏</span>
+        <div class="options">
+          <button class="btn" onclick="select(this,2,'YES')">YES</button>
+          <button class="btn" onclick="select(this,2,'NO')">NO</button>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <span class="q-text">03. Did you ever feel like giving up?</span>
+        <div class="options">
+          <button class="btn" onclick="select(this,3,'YES')">YES</button>
+          <button class="btn" onclick="select(this,3,'NO')">NO</button>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <span class="q-text">04. Were you nervous when you came to see me? 😳</span>
+        <div class="options">
+          <button class="btn" onclick="select(this,4,'YES')">YES</button>
+          <button class="btn" onclick="select(this,4,'NO')">NO</button>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <span class="q-text">05. Do u know ye i will say yes one day? 💖</span>
+        <div class="options">
+          <button class="btn" onclick="select(this,5,'YES')">YES</button>
+          <button class="btn" onclick="select(this,5,'NO')">NO</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-action">
+      <button class="submit-btn" onclick="showPopup()">Finalize Heart 💖</button>
+      <div id="msg"></div>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay">
+    <div class="popup">
+      <h3>The Answers.</h3>
+      Send this screenshot to me in whatsapp
+      <div id="resultText"></div>
+      <button class="next-btn" onclick="window.location.href='year2.html'">Yes I have send💝</button>
+    </div>
+  </div>
+
+  <script>
+    let answers = {};
+
+    function select(btn, q, val) {
+      answers[q] = val;
+      let buttons = btn.parentElement.querySelectorAll(".btn");
+      buttons.forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+      // Clear error message when user interacts
+      document.getElementById("msg").innerHTML = "";
+    }
+
+    function showPopup() {
+      if (Object.keys(answers).length < 5) {
+        document.getElementById("msg").innerHTML = "DON’T SKIP... I’M WATCHING YOU 💖";
+        return;
+      }
+
+      let text = "";
+      const questions = ["First Look", "Attitude", "Giving Up", "The Nerves", "The Yes"];
+      for (let i = 1; i <= 5; i++) {
+        text += `
+        <div class="res-row">
+          <span style="color:rgba(255,255,255,0.6)">${questions[i - 1]}</span>
+          <span style="font-weight:400">${answers[i]}</span>
+        </div>`;
+      }
+      document.getElementById("resultText").innerHTML = text;
+      document.getElementById("overlay").style.display = "flex";
+    }
+  </script>
+
+</body>
+
+</html>

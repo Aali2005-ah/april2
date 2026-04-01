@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>The Restoration | Part IV</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Playfair+Display:ital@0;1&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --gold: #c5a059;
+      --white: #ffffff;
+      --glass: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      /* Added padding so content doesn't touch screen edges */
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url('https://images.pexels.com/photos/19726314/pexels-photo-19726314.jpeg') center/cover no-repeat;
+      color: var(--white);
+      overflow: hidden;
+      box-sizing: border-box;
+      /* Ensures padding doesn't break layout */
+    }
+
+    #main-wrapper {
+      transition: filter 0.6s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: 1.8rem;
+      margin: 0;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+
+    .instruction {
+      font-size: 0.85rem;
+      font-weight: 300;
+      margin: 15px 0 30px 0;
+      letter-spacing: 1px;
+      opacity: 0.9;
+      text-align: center;
+      max-width: 280px;
+      line-height: 1.4;
+    }
+
+    /* Puzzle Container */
+    .puzzle {
+      width: 280px;
+      /* Slightly smaller to ensure fit with margins */
+      height: 280px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      padding: 10px;
+      background: var(--glass);
+      backdrop-filter: blur(8px);
+      /* border: 1px solid rgba(255, 255, 255, 0.15); */
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      /* border-radius: 8px; */
+    }
+
+    .tile {
+      width: 100%;
+      height: 100%;
+      background-image: url('images/puzzle.jpg');
+      background-size: 280px 280px;
+      /* Matches puzzle width */
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      filter: grayscale(20%);
+      border-radius: 2px;
+    }
+
+    .tile:hover {
+      filter: grayscale(0%);
+    }
+
+    .selected {
+      outline: 2px solid var(--gold);
+      outline-offset: -4px;
+      transform: scale(0.92);
+      filter: grayscale(0%) brightness(1.2);
+      z-index: 2;
+    }
+
+    #win {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 85%;
+      max-width: 300px;
+      padding: 10px 10px;
+      background: rgba(10, 10, 10, 0.95);
+      border: 1px solid var(--gold);
+      text-align: center;
+      z-index: 100;
+      backdrop-filter: blur(15px);
+      border-radius: 5px;
+    }
+
+    .win-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--gold);
+      margin-bottom: 15px;
+    }
+
+    .win-text {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 25px;
+      opacity: 0.9;
+    }
+
+    .btn {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 10px 10px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      cursor: pointer;
+      transition: 0.4s;
+      border-radius: 2px;
+    }
+
+    .btn:hover {
+      background: var(--gold);
+      color: #000;
+    }
+
+    .blurred {
+      filter: blur(12px);
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="main-wrapper">
+    <h2>Pieces of Us</h2>
+    <p class="instruction">Rearrange the fragments to reveal our beautiful memory.</p>
+    <div class="puzzle" id="puzzle"></div>
+  </div>
+
+  <div id="win">
+    <div class="win-title">Beautifully Whole</div>
+    <p class="win-text">Just like this picture, we’re strongest when every piece of us comes together. We always fix what’s broken and keep walking this beautiful journey together—until our last breath 💖</p>
+    <button class="btn" onclick="next()">Our Story Continues 🌙</button>
+  </div>
+
+  <script>
+    // Increased the size slightly to match the 280px puzzle
+    const tileSize = 280 / 3;
+    let order = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    order.sort(() => Math.random() - 0.5);
+
+    const puzzle = document.getElementById("puzzle");
+    let firstSelected = null;
+
+    function create() {
+      puzzle.innerHTML = "";
+      order.forEach((val, index) => {
+        let div = document.createElement("div");
+        div.classList.add("tile");
+
+        let x = (val % 3) * -tileSize;
+        let y = Math.floor(val / 3) * -tileSize;
+        div.style.backgroundPosition = `${x}px ${y}px`;
+
+        div.onclick = function () {
+          if (firstSelected === null) {
+            firstSelected = index;
+            div.classList.add("selected");
+          } else {
+            [order[firstSelected], order[index]] = [order[index], order[firstSelected]];
+            firstSelected = null;
+            create();
+            checkWin();
+          }
+        };
+        puzzle.appendChild(div);
+      });
+    }
+
+    function checkWin() {
+      if (order.every((val, i) => val === i)) {
+        setTimeout(() => {
+          document.getElementById("main-wrapper").classList.add("blurred");
+          document.getElementById("win").style.display = "block";
+        }, 500);
+      }
+    }
+
+    function next() {
+      window.location.href = "year5.html";
+    }
+
+    create();
+  </script>
+
+</body>
+
+</html>
